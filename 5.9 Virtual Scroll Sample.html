@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Virtual Scroll 虛擬捲動示範</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        main {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        #status {
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+        }
+
+        /* 可以捲動嘅容器 */
+        #container {
+            position: relative;
+            height: 320px;
+            overflow-y: auto;
+
+            margin-top: 15px;
+            border: 2px solid #333;
+            background-color: white;
+
+            /* JavaScript 會修改呢個值 */
+            --total-height: 0px;
+        }
+
+        /*
+            建立一個虛擬高度。
+
+            因為清單項目使用 position: absolute，
+            本身唔會撐高 container，所以要另外提供總高度。
+        */
+        #container::before {
+            content: "";
+            display: block;
+            height: var(--total-height);
+        }
+
+        .virtual-item {
+            position: absolute;
+            left: 0;
+            right: 0;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 16px;
+            border-bottom: 1px solid #ddd;
+            background-color: white;
+        }
+
+        .virtual-item:nth-of-type(even) {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <h1>Virtual Scroll 虛擬捲動</h1>
+
+        <p>
+            清單共有 1,000 筆資料，但 DOM 只會建立目前畫面需要顯示嘅項目。
+        </p>
+
+        <p id="status" aria-live="polite">
+            正在準備清單……
+        </p>
+
+        <div id="container" role="list" tabindex="0" aria-label="產品清單">
+        </div>
+    </main>
+
+    <script>
+        class VirtualScroll {
+            constructor(container, items, itemHeight) {
+                this.container = container;
+                this.items = items;
+                this.itemHeight = itemHeight;
+
+                /*
+                    計算畫面大約可以顯示幾多項。
+
+                    加 1 係為咗處理項目只顯示一部分嘅情況，
+                    避免底部短暫出現空白。
+                */
+                this.visibleItems =
+                    Math.ceil(container.clientHeight / itemHeight) + 1;
+
+                /*
+                    設定完整清單嘅虛擬高度。
+
+                    例如：
+                    1,000 項 × 每項 50px = 50,000px
+                */
+                const totalHeight = items.length * itemHeight;
+
+                this.container.style.setProperty(
+                    "--total-height",
+                    `${totalHeight}px`
+                );
+
+                // 第一次顯示
+                this.render();
+
+                // 每次捲動時重新顯示目前可見項目
+                this.container.addEventListener("scroll", () => {
+                    this.render();
+                });
+            }
+
+            render() {
+                // 取得目前向下捲動咗幾多像素
+                const scrollTop = this.container.scrollTop;
+
+                // 計算應該由第幾項開始顯示
+                const startIndex =
+                    Math.floor(scrollTop / this.itemHeight);
+
+                // 計算最後顯示位置
+                const endIndex = Math.min(
+                    startIndex + this.visibleItems,
+                    this.items.length
+                );
+
+                // 移除上一批畫面項目
+                this.container.innerHTML = "";
+
+                // 只建立目前可見嘅項目
+                for (
+                    let i = startIndex;
+                    i < endIndex;
+                    i++
+                ) {
+                    const item = document.createElement("div");
+
+                    item.className = "virtual-item";
+                    item.setAttribute("role", "listitem");
+
+                    // 每個項目嘅實際高度
+                    item.style.height = `${this.itemHeight}px`;
+
+                    // 將項目放到完整清單中正確嘅位置
+                    item.style.top = `${i * this.itemHeight}px`;
+
+                    item.textContent = this.items[i];
+
+                    // 協助螢幕閱讀器理解項目位置
+                    item.setAttribute(
+                        "aria-posinset",
+                        i + 1
+                    );
+
+                    item.setAttribute(
+                        "aria-setsize",
+                        this.items.length
+                    );
+
+                    this.container.appendChild(item);
+                }
+
+                // 顯示目前渲染狀態
+                const status = document.getElementById("status");
+
+                status.textContent =
+                    `目前顯示第 ${startIndex + 1} 至 ${endIndex} 項，` +
+                    `DOM 只建立咗 ${endIndex - startIndex} 個項目。`;
+            }
+        }
+
+        // 建立 1,000 筆模擬資料
+        const items = Array.from(
+            { length: 1000 },
+            (_, index) => `產品 ${index + 1}`
+        );
+
+        const container =
+            document.getElementById("container");
+
+        // 每個項目高度係 50px
+        const virtualScroll =
+            new VirtualScroll(container, items, 50);
+    </script>
+
+</body>
+
+</html>

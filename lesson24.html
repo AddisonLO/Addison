@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React on a Single Webpage</title>
+
+    
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+
+    
+    <div id="root"></div>
+
+
+
+    
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        const { useState } = React;
+        
+        
+        function App() {
+           
+            
+            
+            const [count, setCount] = useState(0);
+            
+            // 7.7 Q5.1
+            function Counter() {
+                    const [number, setNumber] = useState(0);
+
+                    return (
+                        <>
+                            <p>{number}</p>
+                            <button onClick={() => setNumber(number + 1)}>Click Me !</button>
+                        </>
+                    )
+            }
+
+            // 7.7 Q5.2
+
+            function Member(props) {
+                const [newName, setNewName] = useState(" ");
+                const [newAge, setNewAge ] = useState(" ");
+
+                function handleSubmit(e) {
+                    // 阻止表單重新載入頁面
+                    e.preventDefault();
+
+                    alert(`姓名：${newName}\n年齡：${newAge}`);
+                }
+
+                return (
+                    <form onSubmit={handleSubmit}>
+                            <label>Name</label>
+                            <input type="text" value={newName} onChange={e => setNewName(e.target.value)} placeholder="input your name" required />
+
+                            <label>Age</label>
+                            <input type="text" value={newAge} onChange={e => setNewAge(e.target.value)} placeholder="input your age" required />
+
+                            <button type="submit">Submit</button>
+                    </form>
+                )
+            }
+
+            function Input(props) {
+                const [name, setName] = useState(" ");
+                const [email, setEmail ] = useState(" ");
+                const [age, setAge ] = useState(" ");
+
+                
+                function handleSubmit(e) {
+                    // 阻止表單重新載入頁面
+                    e.preventDefault();
+
+                    alert(`姓名：${name}\n電郵：${email}\n年齡：${age}`);
+                }   
+                
+
+            
+
+                return (
+                    <>
+                        <form onSubmit={handleSubmit}>
+                            <label>Name</label>
+                            <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Please input your name" required />
+
+                            <label>Email</label>
+                            <input type="text" value={email} onChange={e => setEmail(e.target.value)} placeholder="Please input your email" required />
+
+                            <label>Age</label>
+                            <input type="text" value={age} onChange={e => setAge(e.target.value)} placeholder="Please input your age" required />
+
+                            <button type="submit">Submit</button>
+                        </form>
+                    </>
+                )
+            }
+            
+            
+            
+            return (
+                <>
+                    <h1>Simple counter</h1>
+                    <p>You pressed { count } times</p>
+
+                    <button type="button" onClick={() => setCount(count + 1)}>Press me!</button>
+                    <button type="button" onClick={() => setCount(0)}>Reset</button>
+
+                    <Input />
+                    <Counter />
+                    <Member />
+                </>
+            )
+        }
+
+        root.render(<App />);
+    </script>
+
+</body>
+</html>

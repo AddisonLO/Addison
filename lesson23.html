@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React on a Single Webpage</title>
+
+    
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+
+    
+    <div id="root"></div>
+
+
+
+    
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+
+        function App() {
+            
+
+            const commentData = {
+                author: {
+                    name: "John",
+                    avatarUrl: "https://i.pravatar.cc/150?img=12"
+                },
+                text: "This is a text",
+                date: "2026-07-23"
+            }
+
+            function Welcome(props) {
+                return <h1>Hello {props.name}! You are {props.age} years old</h1>;
+            }
+
+            class Welcome1 extends React.Component {
+                render() {
+                    return <h1>Hello {this.props.name}! You are {this.props.age} years old</h1>;
+                }
+            }
+
+            function Comment(props) {
+                return (
+                    <div className="comment">
+                        <UserInfo user={props.author} />
+                            <p>{props.text}</p>
+                            <span>{ props.date }</span>
+                    </div>
+                    
+                );
+            }
+
+            function UserInfo(props) {
+                return (
+                    <div className="user-info">
+                        <Avatar user={ props.user } />
+                        <h3>{ props.user.name }</h3>
+                    </div>
+                )
+            }
+
+            function Avatar(props) {
+                return (
+                    <img src={ props.user.avatarUrl } alt={ props.user.name } />
+                );
+            
+            }
+
+            // 7.5 Q5.1
+
+            function NameRetreiving(props) {
+                return (
+                    <h1>你好， { props.name } !</h1>
+                )
+                
+            }
+
+            function Card(props) {
+                return <div className="card"> { props.children }<p className="name">{ props.name }</p></div>
+            }
+
+            // 7.6 Q5.1
+
+            function Product(props) {
+                return (
+                    <>
+                      <ul>
+                        <li>{props.name}</li>
+                        <li>{props.price}</li>
+                        <li>{props.isOnSale ? "特價中" : "原價"}</li>
+                        <li>{props.tags[0]}及{props.tags[1]}</li>
+                      </ul>
+                    </>
+                )
+            }
+
+            return (
+                <>
+                    <Welcome1 name="Tim" age="18" className="welcome" />
+                    <Welcome1 name="Tom" age="19" />
+                    <Welcome1 name="John" age="20" />
+
+                    <Comment author={ commentData.author } text={ commentData.text } date={ commentData.date } />
+
+                    <NameRetreiving name="小華" />
+
+                    <Card name="John">
+                        <h1>Title</h1>
+                        <p>Content</p>
+                    </Card>
+
+                    // 7.6 Q5.2
+                    <Card name="today">
+                        <h1>公告</h1>
+                        <p>今日休息</p>
+                    </Card>
+
+                    <Product name="手機" price={25000} isOnSale={true} tags={["熱銷", "限量"]} />
+                </>
+            )
+        }
+
+        root.render(<App />);
+    </script>
+
+</body>
+</html>

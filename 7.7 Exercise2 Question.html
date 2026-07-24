@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React 練習：課堂學員名單</title>
+    <meta name="description" content="React 宣告式編程、JSX、Component、Props、State 練習">
+
+    <!-- React 18 -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- 將 JSX 編譯成普通 JavaScript -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 24px;
+            font-family: Arial, "Microsoft JhengHei", sans-serif;
+            color: #1f2937;
+            background: #f3f4f6;
+            line-height: 1.6;
+        }
+
+        .page,
+        #root {
+            width: min(760px, 100%);
+            margin: 0 auto;
+        }
+
+        .page,
+        .app {
+            padding: 24px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+        }
+
+        .page {
+            margin-bottom: 24px;
+        }
+
+        h1,
+        h2 {
+            color: #1e3a8a;
+        }
+
+        code {
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: #e5e7eb;
+        }
+
+        .task-list {
+            padding-left: 22px;
+        }
+
+        .toolbar {
+            margin-bottom: 18px;
+        }
+
+        button {
+            padding: 9px 14px;
+            color: white;
+            background: #2563eb;
+            border: 0;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .student-list {
+            display: grid;
+            gap: 12px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .student-card {
+            padding: 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+        }
+
+        .student-card h3 {
+            margin: 0 0 6px;
+        }
+
+        .present {
+            color: #166534;
+            font-weight: bold;
+        }
+
+        .absent {
+            color: #991b1b;
+            font-weight: bold;
+        }
+
+        .placeholder {
+            padding: 16px;
+            color: #6b7280;
+            border: 2px dashed #9ca3af;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="page">
+        <h1>React 練習：課堂學員名單</h1>
+
+        <p>
+            完成一個學員名單。按按鈕可以顯示或隱藏出席狀態。
+        </p>
+
+        <h2>練習要求</h2>
+
+        <ol class="task-list">
+            <li>建立 <code>StudentCard</code> Component。</li>
+            <li>使用 Props 接收 <code>student</code> 同 <code>showStatus</code>。</li>
+            <li>使用 State 控制出席狀態顯示或隱藏。</li>
+            <li>使用條件渲染顯示「已出席」或「未出席」。</li>
+            <li>使用 <code>map()</code> 產生學員列表。</li>
+            <li>使用學員嘅 <code>id</code> 作為 <code>key</code>。</li>
+            <li>使用 React 18 <code>createRoot()</code> 同 <code>root.render()</code>。</li>
+        </ol>
+    </section>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const students = [
+            { id: 1, name: "Amy", present: true },
+            { id: 2, name: "Ben", present: false },
+            { id: 3, name: "Chris", present: true }
+        ];
+
+        /*
+         * TODO 1：
+         * 完成 StudentCard Component。
+         *
+         * Props：
+         * - student：一個學員物件
+         * - showStatus：是否顯示出席狀態
+         */
+
+        function StudentCard({ student, showStatus }) {
+            return (
+                <li className="student-card">
+                    <h3>{student.name}</h3>
+
+                    {/*
+                      TODO：
+                      showStatus 為 true 時先顯示 <p>。
+                      student.present 為 true 顯示「已出席」，
+                      否則顯示「未出席」。
+                    */}
+
+                    {showStatus && (
+                        <>
+                        {student.present ? (
+                            <p className="present">已出席</p>) : (<p className="absent">未出席</p>
+                        )}
+                        </>
+                    )}
+                </li>
+            );
+        }
+
+        function App() {
+            /*
+             * TODO 2：
+             * 建立 showStatus State，初始值為 true。
+             */
+
+            const { useState } = React;
+            const [showStatus, setShowStatus] = useState(true);
+            
+
+            /*
+             * 呢個係一個 React 元素。
+             */
+            const titleElement = (
+                <h2>課堂學員名單</h2>
+            );
+
+            return (
+                <main className="app">
+                    {titleElement}
+
+                    <div className="toolbar">
+                        {/*
+                          TODO 3：
+                          按下按鈕時切換 showStatus。
+                          按鈕文字：
+                          - true：隱藏出席狀態
+                          - false：顯示出席狀態
+                        */}
+                        
+                        <button type="button" onClick={ () => setShowStatus(prev => !prev)}>
+                            {showStatus ? "隱藏出席狀態" : "顯示出席狀態" }
+                        </button>
+                    </div>
+
+                    <ul className="student-list">
+                        {/*
+                          TODO 4：
+                          使用 map() 產生 StudentCard。
+                          傳入 student 同 showStatus Props。
+                          使用 student.id 作為 key。
+                        */}
+                        {students.map(s => (
+                            <StudentCard key={s.id} student={s} showStatus={showStatus} />
+                        ))}
+
+                    </ul>
+                </main>
+            );
+        }
+
+        /*
+         * TODO 5：
+         * 使用 ReactDOM.createRoot()，
+         * 再用 root.render(<App />)。
+         */
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>

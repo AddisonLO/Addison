@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style></style>
+</head>
+
+<body>
+
+    <form oninput="sum.value=parseInt(income.value)+parseInt(allowance.value)">
+        <label>Monthly Salary:</label>
+        <input type="number" id="income" value="20000" min="0" />
+
+        <label>Allowance:</label>
+        <input type="number" id="allowance" value="2000" min="0 />">
+
+        <label>Total:</label>
+        <output name="sum" for="income allowance">22000</output>
+    </form>
+
+    <br>
+    <br>
+
+    <form oninput="answer.value=parseFloat(value1.value)+parseFloat(value2.value)">
+        <label>Input value 1:</label>
+        <input type="number" id="value1" value="" min="0" />
+
+        <label>Input value 2:</label>
+        <input type="number" id="value2" value="" min="0" />
+        
+        <label>Answer:</label>
+        <output name="answer" for="value1 value2"></output>
+    </form>
+
+    <br>
+    <br>
+
+    <audio controls>
+        <source src="audio.mp3" type="audio/mpeg">
+        <source src="audio.ogg" type="audio/ogg">
+        <source src="audio.wav" type="audio/wav">
+        
+        <p>Your browser does not support the audio tag.
+            <a href="audio.mp3">Download</a>
+        </p>
+    </audio>
+
+    <video width="800" height="450" controls
+            poster="thumbnail.jpg" preload="metadata">
+            <source src="promo.mp4" type="video/mp4" />
+            <source src="promo.webm" type="video/webm" />
+            <source src="promo.ogv" type="video/ogg" />
+
+            <track src="subtitles_en.vtt" kind="subtitles" srclang="en" label="English" default>
+
+            <p> Your broswer does not support HTML5 video
+                <a href="promo.mp4">Download</a>
+            </p>
+    
+    
+        </video>
+
+
+    <script>
+    </script>
+</body>
+
+</html>

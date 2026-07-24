@@ -1,0 +1,9 @@
+1 hour 
+
+two question
+
+1. proofread coding
+
+2. Anything about js, e.g. looping, array and object processing, DOM related
+
+3. concept

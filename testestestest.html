@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scroll Fade Header</title>
+  <style>
+    body {
+      margin: 0;
+      height: 200vh; /* make page scrollable */
+    }
+
+    .topmost_bar {
+      background-color: rgba(255, 255, 255, 0); /* transparent at start */
+      padding: 20px;
+      width: 100%;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    nav li {
+      list-style: none;
+      display: inline-block;
+      margin: 0 10px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: black;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+        
+        <div class="topmost_bar">
+            <p>My website</p>
+            <nav>
+            <ul>
+                <li><a href="#">Sale</a></li>
+                <li><a href="#">Men</a></li>
+                <li><a href="#">Women</a></li>
+                <li><a href="#">Kid & Baby</a></li>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Gift</a></li>
+                <li><a href="#">World of RL</a></li>
+            </ul>
+            </nav>
+        </div>
+
+        <script>
+            window.addEventListener("scroll", function() {
+            const bar = document.querySelector(".topmost_bar");
+            const scrollY = window.scrollY;
+
+            let opacity = Math.min(scrollY / 200, 1);
+            bar.style.backgroundColor = `rgba(255, 0, 0, ${opacity})`; // red instead of white
+});
+
+        </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React on a Single Webpage</title>
+
+    
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+
+    
+    <div id="root"></div>
+
+    
+    <script type="text/babel">
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+
+        function Tick() {
+            const element = (
+                <>
+                    <h1>目前時間</h1>
+                    <h3>現在是 { new Date().toLocaleTimeString() } </h3>
+                    <h3>今天是 { new Date().toLocaleDateString() } </h3>
+                </>
+            );
+            root.render(element);
+        }
+
+        // const interval1 = setInterval(Tick, 1000);
+
+        // setTimeout( () => {
+        //     clearInterval(interval1);
+        // }, 10000);
+
+        setInterval(Tick, 1000);
+        
+        
+        
+        
+        root.render(<Tick />);
+    </script>
+
+</body>
+</html>

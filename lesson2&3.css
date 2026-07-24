@@ -1,0 +1,120 @@
+.btn-discount {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    user-select: none;
+    transition: background-color 0.9s;
+    margin: 20px auto;
+    display: block;
+    width: fit-content;
+}
+
+.btn-discount:hover {
+    background-color: #0056b3;
+}
+
+.btn-discount:active {
+    background-color: #003d82;
+}
+
+.text-type small  {
+    font-size: 30px;
+}
+.text-type ins  {
+    font-size: 30px;
+}
+.text-type del  {
+    font-size: 30px;
+}
+.text-type sub  {
+    font-size: 30px;
+}
+.text-type sup  {
+    font-size: 30px;
+}
+
+.text-type mark  {
+    font-size: 30px;
+}
+
+ul{
+    list-style-type: square;
+}
+
+.links {
+    display: flex;          /* Aligns children horizontally */
+    gap: 10px;              /* Space between buttons */
+    justify-content: center; /* Optional: center them */
+  }
+
+.links1 {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    user-select: none;
+    transition: background-color 0.9s;
+    margin: 20px auto;
+    display: block;
+    width: fit-content;
+}
+
+.links1:hover {
+    background-color: #0056b3;
+}
+
+.links1:active {
+    background-color: #003d82;
+}
+
+.links2 {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    user-select: none;
+    transition: background-color 0.9s;
+    margin: 20px auto;
+    display: block;
+    width: fit-content;
+}
+
+.links2:hover {
+    background-color: #0056b3;
+}
+
+.links2:active {
+    background-color: #003d82;
+}
+
+table, th, td{
+  border: 1px solid black;
+}
+
+th{
+    font-weight: bold;
+}
+
+tfoot {
+    font-weight: bold;
+    color: white;
+    background-color: black;
+    text-align: center;
+}
+
+caption {
+    border: 1px solid black;
+}
+
+.colspan-col{
+    text-align: center;
+}
+.colspan-title{
+    text-align: center;
+    font-weight: bold;
+    background-color:aquamarine
+}

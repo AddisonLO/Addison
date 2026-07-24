@@ -1,0 +1,12 @@
+#personal-data {
+    margin: 20px;
+    padding: 20px;
+}
+
+label {
+    font-weight: bold;
+}
+
+progress {
+    margin: 20px;
+}

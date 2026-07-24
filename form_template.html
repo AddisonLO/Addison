@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HTML 表單範例：會員註冊與意見回饋</title>
+</head>
+
+<body>
+    <h1>HTML 表單範例：會員註冊與意見回饋</h1>
+    <p>
+        這個範例示範「會員註冊＋聯絡／意見回饋」的完整 HTML 表單。<br>
+        請同學可以在 VS Code 加上 Live Server，實際填寫並送出到 httpbin 觀察結果。
+    </p>
+
+    <!--
+    <form> 是整個表單的容器，所有輸入欄位都要放在裡面。
+    action：設定表單資料要送到哪個網址。
+    method：設定用 GET 還是 POST 傳送資料，這裡示範用 POST。
+  -->
+    <form action="https://httpbin.org/post" method="post">
+        <h2>一、基本會員資料</h2>
+
+        <div>
+            <!--
+        label 的 for 屬性，必須對應到輸入欄位的 id。
+        使用者點擊文字「使用者名稱」時，也會自動把游標移到輸入框。
+        name：是送到伺服器時的欄位名稱，必須有意義。
+      -->
+            <label for="username">使用者名稱（帳號）：</label>
+            <input type="text" id="username" name="username" placeholder="請輸入登入用的名稱" value="示範預設帳號" required>
+        </div>
+
+        <div>
+            <!--
+        type="password"：輸入內容會以圓點或星號顯示，避免旁人偷看。
+        密碼這類敏感資料，不應該搭配 method="get" 使用，避免出現在網址列。
+      -->
+            <label for="password">登入密碼：</label>
+            <input type="password" id="password" name="password" placeholder="請輸入至少 8 碼密碼" required>
+        </div>
+
+        <div>
+            <!--
+        type="email"：瀏覽器會檢查 email 格式（要有 @），
+        在手機上也會出現較方便輸入 email 的鍵盤。
+      -->
+            <label for="email">電子郵件：</label>
+            <input type="email" id="email" name="email" placeholder="example@email.com" required>
+        </div>
+
+        <div>
+            <!--
+        type="tel"：用來輸入電話號碼，雖然瀏覽器不一定會檢查格式，
+        但在手機上會出現較適合輸入電話的鍵盤。
+      -->
+            <label for="phone">聯絡電話：</label>
+            <input type="tel" id="phone" name="phone" placeholder="例如：0912-345678">
+        </div>
+
+        <div>
+            <!--
+        type="number"：只允許輸入數字。
+        min / max：設定可接受的最小／最大值。
+        step：設定每次增加／減少的單位（這裡是整數 1）。
+      -->
+            <label for="age">年齡：</label>
+            <input type="number" id="age" name="age" min="0" max="120" step="1" placeholder="請輸入實際年齡">
+        </div>
+
+        <div>
+            <!--
+        另一個數字欄位，示範 step="0.1" 可以輸入小數。
+      -->
+            <label for="weight">體重（公斤，可含小數）：</label>
+            <input type="number" id="weight" name="weight" min="0" max="300" step="0.1" placeholder="例如：65.5">
+        </div>
+
+        <div>
+            <!--
+        單選按鈕 (radio)：
+        - 同一組的 name 必須相同，瀏覽器才會限制「一次只可選一個」。
+        - 每一個 radio 的 id 要不同，好讓 <label for="..."> 正確對應。
+        - checked：設定預設選項。
+      -->
+            <span>性別：</span>
+            <input type="radio" id="gender-male" name="gender" value="male" checked>
+            <label for="gender-male">男</label>
+
+            <input type="radio" id="gender-female" name="gender" value="female">
+            <label for="gender-female">女</label>
+
+            <input type="radio" id="gender-other" name="gender" value="other">
+            <label for="gender-other">其他／不想透露</label>
+        </div>
+
+        <div>
+            <!--
+        範例：日期欄位，章節中有提到。
+        type="date"：瀏覽器會提供日期選擇器（支援度視瀏覽器而定）。
+      -->
+            <label for="birthdate">出生日期：</label>
+            <input type="date" id="birthdate" name="birthdate">
+        </div>
+
+        <h2>二、興趣與通知設定</h2>
+
+        <div>
+            <!--
+        核取方塊 (checkbox)：
+        - 適合「可複選」情境。
+        - value：勾選時真正送到伺服器的值。
+        - checked：預設勾選。
+      -->
+            <span>興趣（可複選）：</span><br>
+            <input type="checkbox" id="interest-sport" name="interest_sport" value="sport" oninput="ShowingValue(this)">
+            <label for="interest-sport">運動</label>
+
+            <input type="checkbox" id="interest-music" name="interest_music" value="music" oninput="ShowingValue(this)" >
+            <label for="interest-music">音樂（示範預設勾選 checked）</label>
+
+            <input type="checkbox" id="interest-reading" name="interest_reading" value="reading" oninput="ShowingValue(this)">
+            <label for="interest-reading">閱讀</label>
+        </div>
+
+        <div>
+            <input type="checkbox" id="agree-terms" name="agree_terms" value="yes" checked>
+            <label for="agree-terms">
+                我已閱讀並同意會員服務條款（示範 checkbox 的 value 與 checked）
+            </label>
+        </div>
+
+        <div>
+            <input type="checkbox" id="newsletter" name="newsletter" value="yes">
+            <label for="newsletter">我要訂閱電子報與優惠資訊</label>
+        </div>
+
+        <div>
+            <!--
+        <select> + <option> 建立下拉選單。
+        - name：送到伺服器的欄位名稱。
+        - id：配合 <label for> 使用。
+        - required：必選欄位，不能留白。
+        - 第一個 <option> 常用作「提示文字」，可搭配 disabled + selected，
+          提醒使用者一定要選其他選項。
+      -->
+            <label for="contact-method">偏好聯絡方式：</label>
+            <select id="contact-method" name="contact_method" required>
+                <option value="" disabled selected>請選擇聯絡方式</option>
+                <option value="email">電子郵件</option>
+                <option value="phone">電話</option>
+                <option value="sms">簡訊／即時通訊</option>
+            </select>
+        </div>
+
+        <div>
+            <!--
+        multiple：允許多選。
+        size：設定同時顯示幾個項目。
+        selected：預設選中的選項。
+      -->
+            <label for="regions">服務地區（可多選）：</label>
+            <select id="regions" name="regions" multiple size="3">
+                <option value="hk_island">香港島</option>
+                <option value="kowloon">九龍</option>
+                <option value="nt" selected>新界（示範 selected）</option>
+            </select>
+        </div>
+
+        <h2>三、意見與回饋</h2>
+
+        <div>
+            <!--
+        <textarea> 用於多行文字輸入。
+        - name：送到伺服器的欄位名稱。
+        - rows / cols：控制初始顯示的行數與寬度。
+        - placeholder：顯示提示文字。
+        - maxlength：限制可輸入的最大字元數。
+        注意：預設內容要寫在開始與結束標籤之間，而不是用 value。
+      -->
+            <label for="feedback">對本服務的意見或建議：</label><br>
+            <textarea id="feedback" name="feedback" rows="6" cols="40" placeholder="請輸入您的意見或建議，最多 500 字"
+                maxlength="500"></textarea>
+        </div>
+
+        <div>
+            <!--
+        readonly：只讀欄位，使用者不能修改，但送出表單時資料會一起送出。
+      -->
+            <label for="internal-note">系統備註（readonly 示範）：</label><br>
+            <textarea id="internal-note" name="internal_note" rows="3" cols="40"
+                readonly>這裡的內容只能閱讀，不能修改，但會隨表單一併送出。</textarea>
+        </div>
+
+        <div>
+            <!--
+        disabled：停用欄位，使用者不能編輯，送出表單時也不會包含這個欄位。
+        這裡純粹為示範用途。
+      -->
+            <label for="disabled-note">已停用欄位示範（disabled）：</label><br>
+            <textarea id="disabled-note" name="disabled_note" rows="3" cols="40"
+                disabled>這個欄位目前已停用（disabled），送出表單時不會傳到伺服器。</textarea>
+        </div>
+
+        <h2>四、送出與重設表單</h2>
+
+        <p>
+            請確認以上資料無誤後，再按下「送出表單」。<br>
+            如需全部重新填寫，可使用「重設」按鈕。
+        </p>
+
+        <div>
+            <!--
+        以 <input> 建立送出與重設按鈕：
+        - type="submit"：送出表單。
+        - type="reset"：把所有欄位恢復到初始狀態。
+      -->
+            <input type="submit" name="submit_input" value="以 &lt;input&gt; 送出表單">
+            <input type="reset" name="reset_input" value="以 &lt;input&gt; 重設整份表單">
+        </div>
+
+        <div>
+            <!--
+        以 <button> 建立按鈕：
+        - type="submit"：送出表單（預設值，如果沒有寫 type，會當作 submit）。
+        - type="reset"：重設表單。
+        - type="button"：一般按鈕，本身不會送出表單，通常配合 JavaScript 使用。
+        現在暫時只示範結構，不加入 JavaScript。
+      -->
+            <button type="submit" name="submit_button">
+                以 &lt;button&gt; 送出表單
+            </button>
+
+            <button type="reset" name="reset_button">
+                以 &lt;button&gt; 重設表單
+            </button>
+
+            <button type="button" name="normal_button">
+                一般按鈕（目前沒有額外動作）
+            </button>
+        </div>
+
+        <!--
+      補充：為什麼這裡選擇 method="post"？
+      1. post 會把表單資料放在 HTTP 請求的主體 (body)，
+         網址列不會顯示內容，對密碼等敏感資料較安全。
+      2. get 會把資料加在網址後面：
+         例如：https://example.com/login?username=abc&password=123456
+         - 任何看到螢幕的人都可以抄到網址，進而看到密碼。
+         - 瀏覽器歷史記錄也會留下完整網址。
+         因此「登入／註冊／個人資料」這類表單，一般都用 post。
+    -->
+    </form>
+
+    <script src="form_template.js"></script>
+</body>
+
+</html>

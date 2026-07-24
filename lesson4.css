@@ -1,0 +1,112 @@
+header {
+    text-align: center;
+    font-weight: bold;
+}
+
+nav {
+    background-color: black;  
+    padding: 10px;
+    
+}
+
+nav ul {
+    list-style: none;          
+    margin: 0;
+    padding: 0;
+    display: flex;             
+}
+
+.nav_item{
+    margin-right: 20px;       
+}
+
+.nav_mainPage{
+    margin-right: 20px;       
+}
+
+
+nav ul li a {
+    color: white;             
+    text-decoration: none;     
+    font-weight: bold;
+}
+nav li:hover{
+    background-color: grey;
+    transition: background-color 0.9s;
+}
+.nav_aboutMe{
+    float: right;
+    margin-left: auto;
+    justify-content: space-between;
+}
+
+.content_with_aside{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.content_with_aside figure{
+    margin: 100px;
+}
+
+.content_with_aside aside{
+    float: right;
+    width: 200px;
+    padding: 10px;
+    background-color: yellow;
+    height: 600px;
+    margin: 40px;
+}
+
+.latest_new{
+    text-align: center;
+}
+
+.title{
+    text-align: center;
+}
+
+.register_form{
+    display: block;
+    background-color: #f7c173;
+    color: black;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 20px;
+
+}
+
+.btn-submit{
+    margin: 20px;
+    text-align: center;
+}
+
+label{
+    margin: 20px;
+    
+}
+
+.suggestion_area{
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    margin: 20px auto;
+}
+
+#bootstrap_button {
+    display: block;
+    margin: auto;
+    
+}
+
+.gender_option {
+    align-items: center;
+}
+
+
+
+
+
+

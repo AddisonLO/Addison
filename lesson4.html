@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="lesson4.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title></title>
+    <style></style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li class="nav_mainPage"><a href="lesson4.html">首頁</a></li>
+            <li class="nav_item"><a href="lesson1.html">課程1</a></li>
+            <li class="nav_item"><a href="lesson2&3.html">課程2&3</a></li>
+            <li class="nav_item"><a href="template.html">範本</a></li>
+            <li class="nav_aboutMe"><a href="about.html">關於我</a></li>
+        </ul>
+    </nav>
+
+    <h1 style="text-align: center;">我的網站</h1>
+    <p style="text-align: center;">歡迎來到我的網站！</p>
+    <br>
+    <br>
+
+    <main>
+        <article>
+            <header>
+
+            </header>
+
+            <section class="content_with_aside">
+
+                <div class="html-logo">
+                    <figure>
+                        <img src="./photo/Logo_HTML5.png" alt="website" width="400">
+                        <figcaption>圖1：HTML Logo</figcaption>
+                    </figure>
+                </div>
+
+                <div class="aside_bar">
+                    <aside>
+                        <h2 class="latest_new">最新消息</h2>
+                        <p>敬請期待！</p>
+                    </aside>
+                </div>
+            </section>
+            
+            <p style="text-align: center;"><time id="currentTime"></time></p>
+
+        
+
+
+
+        </article>
+        <hr>
+
+        <!-- 第23題 -->
+        <article>
+            <header>
+                <h1>香港音樂節</h1>
+            </header>
+            <section>
+                <dl>
+                    <dt>活動日期：</dt>
+                    <dd><time datetime="2025-11-01">2025 年 11 月 1 日</time></dd>
+                    <dt><p>開始時間：</p></dt>
+                    <dd>香港時間晚上<time datetime="19:30"> 7 時 30 分</time></dd>
+                    
+                </dl>
+            </section>
+        </article>
+        
+        
+
+
+    </main>
+
+    
+
+    <footer>
+
+    </footer>
+   <br>
+   <br>
+    <div class="register_form">
+        <div class="title">
+            <h2>Register Form</h2>
+        </div>
+        <form action="lesson4.html" method="get">
+            
+            <div class="name_input">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div class="email_input">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
+            </div>
+
+            <div class="password_input">
+                <label for="password">Password</label>
+                <input type="password"  id="password" name="password">
+            </div>
+            <br>
+           
+            
+            <label for="gender">gender</label>
+            <select id="gender" name="gender">
+                <option value="default" selected>Please choose</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="their">They/Their</option>
+            </select>
+            
+
+            <br>
+            
+            <div class="suggestion_area">
+                <label for="suggestion">Suggestion</label>
+                <textarea id="suggestion" placeholder="Please give some suggestion" rows="2" cols="200"></textarea>
+            </div>
+
+            <p>Are you lesbian?</p>
+            <label for="Les"><input type="radio" name="Les" value="yes">Yes</input></label>
+            <label for="Les"><input type="radio" name="Les" value="no">No</label>
+
+
+            
+            <p>Are you gay?</p>
+            <label for="gay"><input type="radio" name="gay" value="Yes">Yes</label>
+            <label for="gay"><input type="radio" name="gay" value="No">No</label>
+
+            
+            
+           
+            
+            
+            
+            
+            <button type="submit" class="btn btn-primary" id="bootstrap_button" style="padding: 15px 30px;" onclick='alert("You have pressed the submit button")'>Submit</button>
+            
+        </form>
+    </div>
+
+    
+
+    
+    
+
+    <script>
+        function updateTime(){
+            const now = new Date();
+            document.getElementById("currentTime").textContent = now.toLocaleString("zh-HK", {hour12: true});
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+
+</html>

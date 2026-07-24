@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>React 練習：會員資料卡</title>
+
+    <!-- React 18 CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- 將 JSX 轉換成瀏覽器可以執行的 JavaScript -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 30px;
+            background-color: #f2f4f7;
+        }
+
+        section {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: white;
+            border: 1px solid #d8dee4;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        header,
+        div,
+        footer {
+            padding: 20px;
+        }
+
+        header {
+            background-color: #e8f1ff;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        div p {
+            margin: 10px 0;
+        }
+
+        footer {
+            border-top: 1px solid #d8dee4;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- React 會將內容渲染到這個容器 -->
+    <div id="root"></div>
+
+    <!--
+    React 練習：會員資料卡
+
+    情境：
+    一個網上商店需要在會員中心顯示會員資料。
+    請使用 React 建立一張會員資料卡。
+
+    已提供以下 JavaScript 變數：
+
+    const memberName = "陳小明";
+    const memberId = "M2026001";
+    const memberLevel = "金卡會員";
+    const joinYear = 2026;
+    const rewardPoints = 1250;
+    const upgradePoints = 2000;
+
+    const updateDate =
+      new Date().toLocaleDateString("zh-HK");
+
+
+    預期顯示內容：
+
+    會員資料
+
+    姓名：陳小明
+    會員編號：M2026001
+    會員級別：金卡會員
+    加入年份：2026
+    目前積分：1250 分
+    距離下一級會員尚欠：750 分
+
+    資料更新日期：今日日期
+
+
+    要求：
+
+    1. 建立一個名為 element 的 React 元素。
+
+    2. 必須使用以下巢狀結構：
+
+       <section>
+         <header>
+           <h1>會員資料</h1>
+         </header>
+
+         <div>
+           會員詳細資料
+         </div>
+
+         <footer>
+           資料更新日期
+         </footer>
+       </section>
+
+    3. 在中間的 <div> 內使用 <p> 顯示：
+       - 會員姓名
+       - 會員編號
+       - 會員級別
+       - 加入年份
+       - 目前積分
+       - 距離下一級會員尚欠的積分
+
+    4. 所有會員資料必須使用 JSX 大括號 {} 顯示，
+       不可將資料直接寫死在 JSX 內。
+
+       例如：
+
+       <p>姓名：{memberName}</p>
+
+    5. 「距離下一級會員尚欠的積分」必須直接在 JSX 內計算：
+
+       upgradePoints - rewardPoints
+
+       不可直接將答案 750 寫入 JSX。
+
+    6. 在 <footer> 內顯示 updateDate。
+
+    7. 整個 React 元素只可以有一個最外層元素。
+
+    8. 使用 ReactDOM.createRoot() 建立 React 根節點。
+
+    9. 使用 root.render(element) 將會員資料卡顯示到網頁。
+
+    10. 不可使用：
+        - React Component
+        - Props
+        - useState
+        - useEffect
+        - 事件處理
+        - innerHTML
+        - textContent
+        - createElement()
+        - appendChild()
+
+    只可透過 React 的 root.render(element) 顯示內容。
+  -->
+
+    <script type="text/babel">
+        const memberName = "陳小明";
+        const memberId = "M2026001";
+        const memberLevel = "金卡會員";
+        const joinYear = 2026;
+        const rewardPoints = 1250;
+        const upgradePoints = 2000;
+
+        const updateDate =
+            new Date().toLocaleDateString("zh-HK");
+
+        const root = ReactDOM.createRoot(
+            document.getElementById("root")
+        );
+
+        const element = (
+            <>
+                <section>
+                    <header>
+                        <h1>會員資料</h1>
+                    </header>
+                
+                    <div>
+                        <p>姓名： { memberName }</p>
+                        <p>會員編號： { memberId }</p>
+                        <p>會員級別： { memberLevel }</p>
+                        <p>加入年份： { joinYear }</p>
+                        <p>目前積分：{ rewardPoints }</p>
+                        <p>距離下一級會員尚欠： { upgradePoints - rewardPoints } 分</p>
+                    </div>
+
+                    <footer>
+                        資料更新日期：{ updateDate }
+                    </footer>
+                </section>
+            </>
+        );
+        
+        root.render(element);
+        
+    </script>
+</body>
+
+</html>

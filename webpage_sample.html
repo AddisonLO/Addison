@@ -1,0 +1,98 @@
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+       <title>菜單</title>
+       <link rel="stylesheet" href="lesson1.css">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    
+    <body>
+
+        <div class="container">
+        <div class="menu-left">
+        <h1>港式茶餐廳菜單</h1>
+        
+        <div class="menu-section">
+            <h2>飲品</h2>
+            <ul>
+                <li class="menu-item" onclick="addItem('絲襪奶茶', 18)">絲襪奶茶 - $18</li>
+                <li class="menu-item" onclick="addItem('熱咖啡', 16)">熱咖啡 - $16</li>
+                <li class="menu-item" onclick="addItem('凍檸茶', 20)">凍檸茶 - $20</li>
+                <li class="menu-item" onclick="addItem('熱華田', 18)">熱華田 - $18</li>
+            </ul>
+        </div>
+        
+        <div class="menu-section">
+            <h2>麵包西點</h2>
+            <ul>
+                <li class="menu-item" onclick="addItem('菠蘿包', 8)">菠蘿包 - $8</li>
+                <li class="menu-item" onclick="addItem('雞尾包', 8)">雞尾包 - $8</li>
+                <li class="menu-item" onclick="addItem('蛋撻', 6)">蛋撻 - $6</li>
+                <li class="menu-item" onclick="addItem('西多士', 22)">西多士 - $22</li>
+            </ul>
+        </div>
+        
+        <div class="menu-section">
+            <h2>粉麵類</h2>
+            <ul>
+                <li class="menu-item" onclick="addItem('餐蛋麵', 28)">餐蛋麵 - $28</li>
+                <li class="menu-item" onclick="addItem('叉燒湯意粉', 32)">叉燒湯意粉 - $32</li>
+                <li class="menu-item" onclick="addItem('雪菜肉絲米線', 30)">雪菜肉絲米線 - $30</li>
+                <li class="menu-item" onclick="addItem('魚蛋河粉', 28)">魚蛋河粉 - $28</li>
+            </ul>
+        </div>
+        
+        <div class="menu-section">
+            <h2>飯類</h2>
+            <ul>
+                <li class="menu-item" onclick="addItem('揚州炒飯', 45)">揚州炒飯 - $45</li>
+                <li class="menu-item" onclick="addItem('咖哩牛腩飯', 48)">咖哩牛腩飯 - $48</li>
+                <li class="menu-item" onclick="addItem('焗豬扒飯', 52)">焗豬扒飯 - $52</li>
+                <li class="menu-item" onclick="addItem('茄汁雞扒飯', 45)">茄汁雞扒飯 - $45</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="order-right">
+        <h2>您的訂單</h2>
+        <div id="order-list"></div>
+        <div class="total">
+            <h3>總計: $<span id="total-price">0</span></h3>
+        </div>
+    </div>
+</div>
+<script>
+    let orderItems = {};
+    let totalPrice = 0;
+    
+    function addItem(name, price) {
+        if (orderItems[name]) {
+            orderItems[name].quantity += 1;
+        } else {
+            orderItems[name] = {
+                price: price,
+                quantity: 1
+            };
+        }
+        updateOrder();
+    }
+    
+    function updateOrder() {
+        let orderList = document.getElementById('order-list');
+        orderList.innerHTML = '';
+        totalPrice = 0;
+        
+        for (let item in orderItems) {
+            let itemDiv = document.createElement('div');
+            itemDiv.className = 'order-item';
+            itemDiv.innerHTML = item + ' x ' + orderItems[item].quantity + ' = $' + (orderItems[item].price * orderItems[item].quantity);
+            orderList.appendChild(itemDiv);
+            totalPrice += orderItems[item].price * orderItems[item].quantity;
+        }
+        
+        document.getElementById('total-price').textContent = totalPrice;
+    }
+</script>
+</body>
+</html>

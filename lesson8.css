@@ -1,0 +1,23 @@
+.box1 {
+    
+    background-color: black;
+    border: 2px solid red;
+    margin: 20px auto;
+    color: white;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+}
+
+.box2 {
+    
+    background-color: black;
+    border: 2px solid red;
+    margin: 20px auto;
+    color: white;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    
+    
+}

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="lesson5.css" />
+    <title></title>
+    <style></style>
+</head>
+
+<body>
+
+    <form action="/register" method="post">
+        <label for="username">Username: </label>
+        <input type="text" id="username" name="username">
+        
+        <label for="password">Password: </label>
+        <input type="password" id="password" name="password">
+
+        <label><input type="checkbox" id="agreement" name="agreement" value="Yes" required></label>
+    </form>
+
+    <button type="submit" id="submit" name="submit">Submit</button>
+    
+    <div id="gender" name="gender">
+        <span>Gender:</span>
+        <br>
+        <label><input type="radio" id="gender" name="gender" value="male">Male</label>
+        <label><input type="radio" id="gender" name="gender" value="female">Female</label>
+    </div>
+
+    
+    <select id="district" name="district">
+        <option value="" disabled selected>Please choose:</option>
+        <option value="Wan Chai">Wan Chai</option>
+        <option value="Central">Central</option>
+    </select>
+
+    <br>
+
+    <input 
+        type="date"
+        id="birthday"
+        name="birthday"
+        min="1900-01-01"
+        max="2024-12-31"
+    />
+    <br>
+    <input 
+        type="time"
+        id="school"
+        name="school"
+        min="08:00"
+        max="18:00"
+    />
+    <br>
+    <input
+        type="datetime-local"
+        id="local_time"
+        name="local_time"
+        oninput="ShowingValue(this)"
+    />
+
+    <input
+        type="month"
+        id="month"
+        name="month"
+        oninput="ShowingValue(this)"
+    />
+    
+    <br>
+    
+    <input type="color" id="color" name="color" value="black" />
+
+    <div id="preview" style="width:100px; height:100px; border:1px solid #000;"></div>
+
+    
+    <br>
+
+    <label for="volume">volume</label>
+    <input 
+        type="range" 
+        id="volume" 
+        name="volume" 
+        min="0" 
+        max="100" 
+        value="50"
+    />
+
+    <span id="volumeValue">50</span>%
+
+    <br>
+
+    <label for="search">Search: </label>
+    <input 
+        type="search"
+        id="search"
+        name="search"
+        placeholder="Search..."
+    />
+
+    <label for="browser">Browsers: </label>
+    <input list="browsers" id="browser" name="browser" />
+    <datalist id="browsers">
+        <option value="IE"></option>
+        <option value="Chrome"></option>
+        <option value="Firefox"></option>
+    </datalist>
+
+    <label for="skill">Liked skill: </label>
+    <input list="skills" id="skill" name="skill" />
+    <datalist id="skills">
+        <option value="HTML"></option>
+        <option value="CSS"></option>
+        <option value="JavaScript"></option>
+    </datalist>
+
+
+    <br>
+
+     <input
+        type="tel"
+        id="phone"
+        name="phone"   
+        pattern="\d{8}"
+        placeholder="e.g. 23456789"
+    />
+
+    <input
+        type="tel"
+        id="phone"
+        name="phone"   
+        pattern="[45679]\d{7}"
+        placeholder="e.g. 23456789"
+        oninput="ShowingValue(this)"
+    />
+
+    <br>
+
+    <input 
+        type="url"
+        id="website"
+        name="website"
+        placeholder="https://example.com"
+    />
+
+    <label>Name (required): </label>
+    <input type="text" required />
+
+    <input type="text" minlength="3" maxlength="9" required />
+
+    <form>
+        <fieldset id="personal-data">
+            <legend style="font-weight: bold; color: blue;">Personal Data</legend>
+            
+            <div class="input_box">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required />
+            </div>
+
+            <br>
+
+            <div class="input_box">
+                <label for="age">Age</label>
+                <input type="text" id="age" name="age" required />
+            </div>
+
+            <br>
+
+            <div class="input_box">
+                <label for="gender">Gender</label>
+                <input type="radio" id="gender" name="gender" value="male"/>Male
+                <input type="radio" id="gender" name="gender" value="female" />Female
+                <input type="radio" id="gender" name="gender" value="other" />Other
+            </div>
+
+        </fieldset>
+
+        <datalist>
+
+        </datalist>
+
+    </form>
+   
+    <!-- 2.9 question 5.2 -->
+    <form>
+        <fieldset>
+            <legend>Personal data</legend>
+            
+            <label for="name">Name:</label>
+            <input tpye="text" id="name" name="name" required />
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" />
+        </fieldset>
+
+        <fieldset>
+            <legend>Contact Email</legend>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" />
+        </fieldset>
+    </form>
+
+    <!-- 2.9 question 5.2 -->
+
+    <h2>Progress Example</h2>
+
+    <div >
+        <p>File Upload</p>
+        <progress value="32" max="100"></progress>32%
+        <progress value="60" max="100"></progress>60%
+        <h3>Loading</h3>
+        <progress></progress>
+    </div>
+
+    <input autocomplete="name" />
+    <input autocomplete="email" />
+    <input type="password" autocomplete="on" />
+
+    <!-- 
+    autofocus: automatically move the cursor toblank input bar 
+    autocomplete: decide whether showing up old content or not
+    placeholder: alternative text
+    readonly: set the text cannot be modified will be sent to back end
+    disable: set the text cannot be modified but will not be sent to back end 
+    -->
+
+    <!-- 2.9 question 5.3 -->
+    <label for="color">Color</label>
+    <input type="color" id="color" name="color" value="#ff0000" />
+
+    <br>
+
+    <div id="color_box" name="color_box" style="width: 100px; height: 100px;"></div>
+
+    <script>
+        document.getElementById('color').addEventListener('input',function () {
+            document.getElementById('color_box').style.backgroundColor = this.value;
+        })
+    </script>
+
+    <!-- 2.9 question 5.3 -->
+
+    <script src="form_template.js"></script>
+</body>
+
+</html>
