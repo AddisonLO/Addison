@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React on a Single Webpage</title>
+
+    
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+
+    
+    <div id="root"></div>
+
+
+
+    
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        const { useState } = React;
+        
+        
+        function App() {
+            
+            const [ name, setName ] = useState('');
+            const [ email, setEmail ] = useState('');
+            const [ password,setPassword] = useState('');
+
+            
+
+            function handleClickTradition() {
+                console.log("tranditional naming function: you've pressed the button");
+            }    
+
+            class MyComponent extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.handleCLickBound = this.handleClickBound.bind(this);
+                }
+                handleClickBound() {
+                    console.log("class component function: you've pressed the button");
+                }
+                render() {
+                    return <button onClick={this.handleClickBound}> Click me!</button>;
+                }
+            }
+
+            
+
+            function handleClick(message) {
+                console.log(message);
+            }
+
+            
+                
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                alert("The name you have submitted: " + name);
+            };
+
+            function UserForm() {
+                const [formData, setFormData ] = useState({
+                    username: '',
+                    email: '',
+                    password: ''
+                });
+
+                const handleChange = (e) => {
+                    const { name, value } = e.target;
+                    setFormData(prevData => ({
+                        ...prevData,
+                        [name]: value
+                    }));
+                }
+            }
+
+            function ObjectShowcase() {
+                let obj1 = {
+                    name: "Mary",
+                    email: "abc@gmail.com"
+                }
+
+                let obj2 = obj1;
+                obj2.name = "Amy";
+
+                let obj3 = {...obj1};
+                obj3.name = "John";
+
+                console.log("obj1", obj1.name);
+                console.log("obj2", obj2.name);
+                console.log("obj3", obj3.name);
+
+                let obj4 = structuredClone(obj1);
+
+                let obj5 = {
+                    name: "Mary",
+                    email: "abc@gmail.com"
+                }
+                console.log(obj5);
+
+                obj5 = {...obj5, name: "Betty"};
+
+                console.log(obj5);
+
+                let obj6 = {
+                    name: "Mary",
+                    email: "abd@gmail.com",
+                    district: "Tuen Mun",
+                    course: "frontend"
+                }
+
+                let {name, email} = obj6;
+                console.log(name);
+                console.log(email);
+
+                let updateInfo = {
+                    district: "Kwai Heng",
+                    course: "backend"
+                }
+
+                obj6 = {...obj6, ...updateInfo};
+
+                let score = {
+                    test: 50,
+                    exam: 60
+                }
+
+                obj6 = {...obj6, score};
+
+                console.log(obj6["score"]);
+                console.log(obj6["score"]["exam"]);
+                console.log(obj6["score"]["test"]);
+
+                let fieldName = "district";
+                let fieldValue = "Jordan";
+
+                obj6[fieldName] = fieldValue;
+
+                console.log(obj6);
+            }
+
+            function Input(props) {
+                return <input type={props.type} value={props.value} name={props.name} />
+            }
+            
+            
+            
+               
+            
+            return (
+                <>
+                  <button onClick={ () => console.log("anonymous function: you've pressed the button")}>Click me!</button>
+                  <button onClick={ handleClickTradition }>Click me !</button>
+                  <button onClick={ () => handleClick("hi")}>Click me !</button>
+                  <MyComponent />    
+                  <br/>
+                  <br/>
+                  <form onSubmit={handleSubmit}>
+                        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                        <button type="submit">Submit</button>
+                  </form>
+
+                  <ObjectShowcase />   
+                  
+                  <Input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
+                  <Input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                  <Input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                </>
+            )
+        }
+
+        root.render(<App />);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>練習：星光戲院購票系統</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            font-family: "Microsoft JhengHei", sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            margin: 0;
+            padding: 16px;
+        }
+
+        .card {
+            background: #16213e;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 0 auto 16px;
+            max-width: 560px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #ffd700;
+        }
+
+        h2 {
+            font-size: 1rem;
+            border-left: 5px solid #ffd700;
+            padding-left: 8px;
+        }
+
+        button {
+            background: #e94560;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 16px;
+            margin: 4px;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        .movie-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed #444;
+            padding: 8px 0;
+        }
+
+        .msg {
+            background: #0f3460;
+            border-radius: 6px;
+            padding: 10px;
+            min-height: 24px;
+            margin-top: 10px;
+            word-break: break-all;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        function Cinema() {
+
+            // 這兩個 state 已經幫你準備好，用來顯示訊息
+            const [message, setMessage] = React.useState('（等待操作）');
+            const [seatInfo, setSeatInfo] = React.useState('（未揀座位區域）');
+
+            /* ========== 任務一 ==========
+               TODO：在這裏定義命名函式 handleWelcome，
+               內容是 setMessage('今日共有 3 部電影上映');
+            */
+
+            function handleWelcome() {
+                setMessage('今日共有 3 部電影上映');
+                
+            }
+
+
+            /* ========== 任務三 ==========
+               TODO：在這裏定義函式 handleSeatArea，
+               記住要在括號裏「接住」事件對象。
+               用 setSeatInfo(...) 顯示 event.type 和
+               event.target.innerText（按鈕上的文字）。
+            */
+
+            function handleSeatArea(event) {
+                setSeatInfo([event.target.innerText, event.type].join(", "));
+                
+            }
+
+
+            /* ========== 任務四 ==========
+               TODO：在這裏定義函式 handleBuyTicket，
+               括號裏要預留一個名字接收電影名稱，
+               然後 setMessage('已為你預留《' + 電影名稱 + '》戲飛一張');
+            */
+
+            function handleBuyTicket(name) {
+                setMessage(`已為你預留《${name}》戲飛一張`);
+            }
+
+
+            return (
+                <div>
+                    <h1>🎬 星光戲院・網上購票</h1>
+
+                    <div className="card">
+                        <h2>任務一：查看場次</h2>
+                        {/* TODO：把 handleWelcome 交給下面的按鈕。
+                提示：駝峰命名？大括號？加不加括號？ */}
+                        <button onClick={ handleWelcome }>查看今日場次</button>
+                        
+                    </div>
+
+                    <div className="card">
+                        <h2>任務二：入場須知</h2>
+                        {/* TODO：直接在按鈕上用匿名箭頭函式，
+                執行 setMessage('請將手提電話較至靜音') */}
+                        <button onClick={(() => setMessage("請將手提電話較至靜音"))}>入場須知</button>
+                        
+                    </div>
+
+                    <div className="card">
+                        <h2>任務三：揀座位區域</h2>
+                        {/* TODO：三個按鈕都交給同一個 handleSeatArea */}
+                        <button onClick={ handleSeatArea }>前座</button>
+                        <button onClick={ handleSeatArea }>中座</button>
+                        <button onClick={ handleSeatArea }>後座</button>
+                        <div className="msg">{seatInfo}</div>
+                    </div>
+
+                    <div className="card">
+                        <h2>任務四：揀電影購票</h2>
+                        <div className="movie-item">
+                            <span>太空歷險記 $95</span>
+                            {/* TODO：按下時呼叫 handleBuyTicket 並傳入 '太空歷險記'。
+                  小心：直接寫 handleBuyTicket('太空歷險記') 會出事！
+                  */}
+                            <button onClick={() => handleBuyTicket('太空歷險記')}>購票</button>
+                        </div>
+                        <div className="movie-item">
+                            <span>深海奇緣 $85</span>
+                            <button onClick={() => handleBuyTicket('深海奇緣')}>購票</button>
+                        </div>
+                        <div className="movie-item">
+                            <span>功夫熊貓貓 $75</span>
+                            <button onClick={() => handleBuyTicket('功夫熊貓貓')}>購票</button>
+                        </div>
+                    </div>
+
+                    <div className="card">
+                        <h2>系統訊息</h2>
+                        <div className="msg">{message}</div>
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<Cinema />);
+
+    </script>
+</body>
+
+</html>
