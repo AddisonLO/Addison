@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7.11 AJAX 練習題｜學員版</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+          * { box-sizing: border-box; }
+          body { margin: 0; font-family: Arial, "Noto Sans TC", sans-serif; line-height: 1.6; color: #1f2937; background: #f3f4f6; }
+          header { padding: 30px 20px; color: white; background: #1d4ed8; }
+          header div, main { width: min(100% - 32px, 1000px); margin: 0 auto; }
+          h1, h2, h3, p { margin-top: 0; }
+          header p { margin-bottom: 0; }
+          main { padding: 24px 0 48px; }
+          .card { margin-bottom: 20px; padding: 22px; background: white; border: 1px solid #dbe2ea; border-radius: 12px; }
+          .intro { background: #eff6ff; border-left: 5px solid #2563eb; }
+          .challenge { background: #fff7ed; border-left: 5px solid #f97316; }
+          .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+          .panel { padding: 18px; border: 1px solid #dbe2ea; border-radius: 10px; background: #f8fafc; }
+          button { min-height: 42px; padding: 9px 14px; font: inherit; color: white; background: #2563eb; border: 0; border-radius: 7px; cursor: pointer; }
+          button:disabled { background: #94a3b8; cursor: not-allowed; }
+          .status { margin-top: 14px; padding: 12px; border-radius: 8px; }
+          .loading { color: #854d0e; background: #fef9c3; }
+          .error { color: #991b1b; background: #fee2e2; }
+          .empty { color: #475569; background: #e2e8f0; }
+          .data-list { display: grid; gap: 10px; padding: 0; list-style: none; }
+          .data-list li { padding: 14px; background: white; border: 1px solid #dbe2ea; border-radius: 8px; }
+          .data-list strong { display: block; }
+          .small { color: #64748b; font-size: .92rem; }
+          code { padding: 2px 5px; color: #9f1239; background: #fce7f3; border-radius: 4px; }
+          @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>7.11 AJAX 與數據獲取｜學員練習</h1>
+      <p>公司工作台：載入公告及個人待辦事項</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="card intro">
+      <h2>練習說明</h2>
+      <p><strong>建議時間：</strong>90 分鐘</p>
+      <p><strong>Fetch URL：</strong><code>https://jsonplaceholder.typicode.com</code></p>
+      <ul>
+        <li>Part A：使用 <code>.then() / .catch() / .finally()</code></li>
+        <li>Part B：使用 <code>async/await + try/catch/finally</code></li>
+        <li>兩部分都要處理 data、loading、error、response.ok、map()、key 及重新載入按鈕</li>
+        <li>請在原始碼搜尋 <code>TODO</code>，每個 TODO 後面都有提示</li>
+      </ul>
+    </section>
+
+    <div id="root"></div>
+
+    <section class="card challenge">
+      <h2>延伸挑戰：自定義 Hook</h2>
+      <p>完成程式碼內半完成的 <code>useFetchData(url)</code>，再嘗試用它重構其中一個組件。</p>
+    </section>
+  </main>
+
+  <script type="text/babel">
+    const { useEffect, useState } = React;
+    const API_BASE_URL = "https://jsonplaceholder.typicode.com";
+
+    // =========================================================
+    // Part A：公司公告（Promise 鏈）
+    // =========================================================
+    function CompanyAnnouncements() {
+      // TODO A1：建立 posts、loading、error。
+      // 提示：初始值分別為 []、false、""。
+      const [posts, setPosts] = useState([]);
+      const [loading, setLoading] = useState(false);
+      const [error, setError] = useState("");
+
+      function loadPosts() {
+        // TODO A2：將 loading 設為 true，並清除舊 error。
+
+        setLoading(true);
+        setError("");
+        // TODO A3：fetch(`${API_BASE_URL}/posts?_limit=5`)
+
+        // TODO A4：第一個 .then() 檢查 response.ok，
+        // 如失敗便 throw Error；成功便 return response.json()。
+
+        // TODO A5：第二個 .then() 使用 setPosts(data)。
+
+        // TODO A6：.catch() 使用 setError() 顯示錯誤。
+
+        // TODO A7：.finally() 將 loading 設回 false。
+
+        
+        fetch(`${API_BASE_URL}/posts?_limit=5`)
+        .then(res => {
+            if(!res.ok) {
+              throw new Error(`HTTP error! Status: ${res.status}`);
+            }
+            return res.json();
+        })
+        .then(data => {
+            setPosts(data);
+        })
+        
+        .catch(err => {
+            setError(err.message);
+            console.log(`Error: ${err.message}`);
+        })
+        .finally(() => {
+            setLoading(false);
+        });
+
+        
+        
+      }
+
+      useEffect(() => {
+          // TODO A8：首次 render 完成後執行 loadPosts()。
+          loadPosts();
+        }, [])
+
+        
+
+      
+
+      return (
+        <section className="panel">
+          <h2>公司公告</h2>
+          <p className="small">指定使用 Promise 鏈。</p>
+
+          <button type="button" onClick={loadPosts} disabled={loading}>
+            {loading ? "載入中..." : "重新載入公告"}
+          </button>
+
+          {loading && <p className="status loading" role="status">正在載入公告……</p>}
+          {error && <p className="status error" role="alert">{error}</p>}
+
+          {!loading && !error && posts.length === 0 && (
+            <p className="status empty">尚未載入公告，請完成 TODO A2 至 A8。</p>
+          )}
+
+          {!loading && !error && posts.length > 0 && (
+            <ul className="data-list">
+              {/* TODO A9：
+                  使用 posts.map()。
+                  每個 li 使用 post.id 作為 key。
+                  顯示 post.title 及 post.body。
+              */
+                posts.map(post => {
+                  return <li key={post.id}>{post.body}</li>
+                })
+              }
+            </ul>
+          )}
+        </section>
+      );
+    }
+
+    // =========================================================
+    // Part B：我的待辦（async/await）
+    // =========================================================
+    function MyTodoList() {
+      // TODO B1：建立 todos、loading、error。
+      const [todos, setTodos] = useState([]);
+      const [loading, setLoading] = useState(false);
+      const [error, setError] = useState("");
+
+      async function loadTodos() {
+        // TODO B2：設定 loading，並清除舊 error。
+        setLoading();
+        setError("");
+        try {
+          // TODO B3：
+          const response = await fetch(
+            `${API_BASE_URL}/todos?userId=1&_limit=6`
+          );
+
+          // TODO B4：檢查 response.ok，失敗時 throw Error。
+
+          if(!response.ok) {
+            throw new Error( `HTTP error! Status: ${response.status}`);
+          }
+
+          // TODO B5：await response.json()，然後 setTodos(data)。
+
+          const data = await response.json();
+          setTodos(data);
+
+        } catch (err) {
+          // TODO B6：使用 setError() 儲存錯誤訊息。
+
+          setError(err.message);
+          console.error("Error: ", err.message);
+        } finally {
+          // TODO B7：將 loading 設回 false。
+          setLoading(false);
+        }
+      }
+
+      useEffect(() => {
+        // TODO B8：首次 render 完成後執行 loadTodos()。
+        loadTodos();
+      }, []);
+
+      return (
+        <section className="panel">
+          <h2>我的待辦事項</h2>
+          <p className="small">指定使用 async/await。</p>
+
+          <button type="button" onClick={loadTodos} disabled={loading}>
+            {loading ? "載入中..." : "重新載入待辦"}
+          </button>
+
+          {loading && <p className="status loading" role="status">正在載入待辦……</p>}
+          {error && <p className="status error" role="alert">{error}</p>}
+
+          {!loading && !error && todos.length === 0 && (
+            <p className="status empty">尚未載入待辦，請完成 TODO B2 至 B8。</p>
+          )}
+
+          {!loading && !error && todos.length > 0 && (
+            <ul className="data-list">
+              {/* TODO B9：
+                  使用 todos.map()，以 todo.id 作為 key。
+                  顯示 todo.title。
+                  completed 是 true 顯示「已完成」，否則顯示「未完成」。*/
+                todos.map(todo => {
+                  return (
+                      <li key={todo.id}>
+                        <strong>{todo.title}</strong>
+                        <span className="small">{todo.completed ? "Not yet finished" : "Finished"}</span>
+                      </li>
+                  )
+                })
+              }
+            </ul>
+          )}
+        </section>
+      );
+    }
+
+    // =========================================================
+    // Part C：延伸挑戰——自定義 Hook
+    // =========================================================
+    function useFetchData(url) {
+      const [data, setData] = useState(null);
+      const [loading, setLoading] = useState(true);
+      const [error, setError] = useState("");
+
+      useEffect(() => {
+        async function fetchData() {
+          // TODO C1：開始時設定 loading 及清除 error。
+
+          setLoading(true);
+          setError("");
+          try {
+            // TODO C2：await fetch(url)
+            // TODO C3：檢查 response.ok
+            // TODO C4：await response.json()
+            // TODO C5：setData(result)
+
+            const response = await fetch(url);
+
+            if (!response.ok) {
+              throw new Error(`HTTP Error! Status: ${response.status}`);
+            }
+
+            const data = await response.json()
+            setData(data);
+
+            
+          } catch (err) {
+            // TODO C6：setError(...)
+
+            setError(err.message);
+            console.log(`Error occurred: ${err.message}`);
+          } finally {
+            // TODO C7：setLoading(false)
+
+            setLoading(false);
+          }
+        }
+
+        // 完成上面 TODO 後，取消下一行註解：
+         fetchData();
+      }, [url]);
+
+      return { data, loading, error };
+    }
+
+    function TestList() {
+      const {data: todos, loading, error } = useFetchData(
+        `${API_BASE_URL}/todos?userId=1&_limit=6`
+      );
+
+      if (loading) return <p>Loading...</p>
+      if (error) return <p>Error: {error}</p>
+      if (!todos) return <p>No data yet</p>
+
+      return (
+        <ul>
+          {todos.map(todo =>{
+            return (
+              <>
+                <li key={todo.id}>{todo.title}</li>
+                <span className="small">{todo.completed ? "Not yet finished" : "Finished"}</span>
+              </>
+            )
+          })}
+        </ul>
+      )
+    }
+
+    function App() {
+      return (
+        <section className="card">
+          <h2>公司工作台</h2>
+          <div className="grid">
+            <CompanyAnnouncements />
+            <MyTodoList />
+            
+          </div>
+          <TestList />
+        </section>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React on a Single Webpage</title>
+
+    
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+
+    
+    <div id="root"></div>
+
+
+    
+    
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        const { useState, useEffect } = React;
+
+        function UserList() {
+            const [users, setUsers] = useState([]);
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
+
+            useEffect(() => {
+            fetch('https://jsonplaceholder.typicode.com/users')
+                .then(res => res.json())
+                .then(data => {
+                setUsers(data);
+                setLoading(false);
+                })
+                .catch(err => {
+                setError(err.message);
+                setLoading(false);
+                });
+            }, []);
+
+            if (loading) {
+            return <div>Loading...</div>;
+            }
+
+            if (error) {
+            return <div className="error-block">{error}</div>;
+            }
+
+            return (
+            <ul>
+                {users.map(user => (
+                <li key={user.id} style={{ listStyleType: 'none' }}>
+                    {user.name} <br />
+                    <small>{user.email}</small>
+                </li>
+                ))}
+            </ul>
+            );
+        }
+
+        async function DataFetcher ({url}) {
+            try {
+                const response = await fetch(url);
+
+                if(!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                return data;
+            } catch(error) {
+                console.error("Fetch error: ", error);
+                throw error;
+            }
+        }
+
+        function UserProfile({userId}) {
+            const {data: user, loading, error} = DataFetcher({
+                url: `https://jsonplaceholder.typicode.com/users`
+            });
+
+            console.log(user);
+
+            if (loading) return <div>Loading user information...</div>
+            if (error) return <div>Loading failed: {error}</div>
+            if (!user) return <div>Cannot find user</div>
+
+            return (
+                <div>
+                    <h2>{user.name}</h2>
+                    <p>Email: {user.email}</p>
+                    <p>Phone No: {user.phone}</p>
+                    <p>Website: {user.website}</p>
+                </div>
+
+            )
+        }
+
+        function App() {
+            return (
+                <>
+                    <UserList />
+                    <UserProfile userId={1} />
+                </>
+            )
+        }
+
+        root.render(<App />);
+    </script>
+
+
+</body>
+</html>
