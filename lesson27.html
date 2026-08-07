@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React on a Single Webpage</title>
+
+    
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+
+    
+    <div id="root"></div>
+
+
+    
+    
+    <script type="text/babel">
+        
+        const { useState, useEffect } = React;
+        
+        API_URL = "https://jsonplaceholder.typicode.com/todos"; 
+
+        function App() {
+
+            function useApi(apiFunction) {
+                const [data, setData] = useState([]);
+                const [loading, setLoading] = useState(true);
+                const [error, setError] = useState(null);
+
+                const execute = async (...args) => {
+                    try {
+                        setLoading(true);
+                        setError(null);
+                        const result = await apiFunction(...args);
+                        setData(result);
+                    } catch (err) {
+                        setError(err.message);
+                    } finally {
+                        setLoading(false);
+                    }
+                }
+
+                return { data, loading, error, execute };
+            }
+
+            
+
+            function UserManagement() {
+                const {data: users, loading, error, execute: fetchUsers} = useApi(api.getUsers);
+            }
+
+            useEffect(() => {
+                fetchUsers();
+            }, []);
+
+            if (loading) return <h1>Loading...</h1>;
+            if (error) return <h1>Error: {error}</h1>;
+
+            return (
+                <>
+                    {users?.map(user => (
+                        <p key={user.id}>{user.name}</p>
+                    ))}
+                </>
+            )
+
+        }
+
+            
+        
+
+        const root =ReactDOM.createRoot(document.getElementById("root"));
+
+        root.render(<TodoApp />);
+    </script>
+
+
+</body>
+</html>

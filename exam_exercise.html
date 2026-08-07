@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        /* 第 1 題的 CSS 請填寫於此處 */
+        body {
+            background-image: url("https://picsum.photos/300.jpg");
+            background-repeat: repeat-y;
+            background-color: #a9a9ea;
+            background-position: 50% 50%;
+            background-attachment: fixed;
+        }
+
+        /* 第 2 題的 CSS 請填寫於此處 */
+        article {
+            font-family: "Trebuchet MS", sans-serif;
+            letter-spacing: 2px;
+            font-style: capitalize;
+            line-height: 1.8;
+            text-align: right;
+        }
+
+        /* 第 7 題的 CSS 請填寫於此處 */
+        h2 {
+            font-size: 28px;
+            color: white;
+            background-color: teal;
+            font-weight: bold;
+        }
+
+        ul li {
+            list-style-type: disc;
+        }
+        .programme {
+            list-style-type: disc;
+        }
+
+        /* 第 8 題的 CSS 請填寫於此處 */
+        #joinBtn {
+            background-color: steelblue;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+        }
+
+        input {
+            font-weight: 400;
+        }
+
+        .field {
+            font-weight: 400;
+        }
+
+        /* 第 9 題的 CSS 請填寫於此處 */
+
+        ul {
+            display: flex;
+            padding: 0;
+            margin: 0;
+            list-style-type: disc;
+            background-color: darkgreen;
+            overflow: hidden;
+            justify-content: space-evenly;
+        }
+
+        li {
+            float: right;
+            
+        }
+        li a {
+            color: white;
+            text-align: center;
+            padding: 12px 14px 16px 14px;
+            text-decoration: none
+        }
+
+        
+        .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: nowrap;
+            gap: 16px;
+            padding: 24px;
+            background-color: rgb(224, 213, 213);
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 180px;
+            text-align: center;
+        }
+
+
+    </style>
+
+
+</head>
+
+<body>
+    <!-- 題目一 -->
+    <h1>MELODY STORE</h1>
+    <img id="storefront" src=" https://picsum.photos/200.jpg ">
+    <p>Browse our collection!</p>
+    <ul>
+        <li class="genre">Jazz</li>
+        <li class="genre">Classical</li>
+        <li class="genre">Rock</li>
+        <li class="genre">Pop</li>
+        <li class="genre">Hip-Hop</li>
+    </ul>
+
+    <!-- 題目四 -->
+    <h2>WELLNESS HUB</h2>
+    <img id="banner" src=" https://picsum.photos/200.jpg">
+    <p>Choose your programme!</p>
+    <ul>
+        <li class="programme">Yoga</li>
+        <li class="programme">Pilates</li>
+        <li class="programme">Meditation</li>
+        <li class="programme">Cycling</li>
+        <li class="programme">Swimming</li>
+    </ul>
+
+    <!-- 題目八 -->
+
+    <h3>Join Our Book Club</h3>
+    <form id="joinForm">
+        <input type="text" class="field" placeholder="Your Name">
+        <input type="email" class="field" placeholder="Email Address">
+        <select id="genreSelect">
+            <option>Fiction</option>
+            <option>Non-Fiction</option>
+            <option>Mystery</option>
+        </select>
+        <button id="joinBtn" type="submit">Join Now</button>
+    </form>
+
+    <!-- 題目九 -->
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <!-- 題目十 -->
+
+    <div class="card-container">
+        <div class="card">Product A</div>
+        <div class="card">Product B</div>
+        <div class="card">Product C</div>
+        <div class="card">Product D</div>
+    </div>
+
+    <!-- 題目十一 -->
+
+    <p id="notification">Notification: Your session will expire soon.</p>
+    <button id="btn" onclick="showAlert()">Click me!</button>
+
+
+    <!-- 題目十二 -->
+
+    <p id="status">Server Status: Offline</p>
+    <button id="status_button">Click me!</button>
+
+    <!-- 題目十三 -->
+    <p>Morning Session</p>
+    <p>Afternoon Session</p>
+    <p>Evening Session</p>
+
+    <button id="session_button" onclick="dimAll()">Click me!</button>
+
+
+    <!-- 題目十四 -->
+     <div class="promo-banner">
+        <span>Regular Price: $120</span>
+    </div>
+
+    <button id="banner-button" onclick="applyDiscount()">Click me!</button>
+
+
+    <!-- 題目十五 -->
+
+    <button onclick="appendNotice()">Click me!</button>
+
+
+    <!-- 題目十六 -->
+    <ul id="taskBoard">
+        <li id="task1">Submit project proposal</li>
+        <li id="task2">Review design mockups</li>
+        <li id="task3">Update client report</li>
+    </ul>
+
+    <button onclick="clearFirst()">Click me!</button>
+
+
+    <
+
+
+    <script>
+        // 題目三
+        for (let i = 5; i % 5 === 0 && i <= 25; i += 5) {
+            console.log("For loop: " +i);
+        }
+
+        let i = 5;
+        do {
+            console.log("Do-while loop: " + i);
+            i += 5;
+        } while( i % 5 === 0 && i <= 25);
+
+        // 題目四
+        while (i <= 5) {
+            let result = i;
+            document.write(result + "<br>");
+            i++;
+            
+        }
+
+        let array1 = ["1", "2", "3", "4", "5"];
+
+        for(result of array1){
+            document.write(result + "<br>");
+        }
+
+        // 題目五
+
+        let movieList = ["Inception", "Interstellar", "Dune", "Arrival", "Oppenheimer"];
+
+        movieList[1];
+        // Output: Interstellar
+
+        let newMovie = "Tenet";
+        movieList.push(newMovie);
+
+        for( let i = 0; i < movieList.length; i++) {
+            console.log(movieList[i]);
+        }
+
+        // 題目六
+        let carInfo = {brand: "Toyota", model: "Supra", year: 2022, colour: "red"};
+        carInfo["model"]
+        // output: Supra
+
+        carInfo.mileage = 15000;
+
+        for(infos in carInfo) {
+            console.log(`${infos}: ${carInfo[infos]}`);
+        }
+
+        // 題目十一
+        function showAlert() {
+            const paragraph = document.getElementById("notification");
+
+            paragraph.style.color = "crimson";
+            paragraph.style.backgroundColor = "lightyellow";
+        }
+
+        // 題目十二
+        const status_button = document.getElementById("status_button");
+
+        function activateServer(){
+            const status = document.getElementById("status");
+
+            status.textContent = "Server Status: Online";
+            status.style.color = "limegreen";
+        }
+
+        status_button.addEventListener("click", activateServer);
+
+        // 題目十三
+
+        function dimAll() {
+            const p_tag = document.getElementsByTagName("p");
+
+            for (let i = 0; i < p_tag.length; i++){
+                p_tag[i].style.color = "dimgray";
+            }
+        }
+
+        // 題目十四
+
+        
+        function applyDiscount() {
+            const banner = document.querySelector(".promo-banner span");
+            banner.textContent = "Sale Price: $80";
+            banner.style.fontWeight = "bold";
+        }
+
+        // 題目十五
+
+        function appendNotice() {
+            const appendPara = document.createElement("p");
+            appendPara.textContent = "Registration is now open!";
+            document.body.appendChild(appendPara);
+        }
+        
+        // 題目十六
+
+        function clearFirst() {
+            const taskboard = document.getElementById("taskBoard");
+            const task1 = document.getElementById("task1");
+            taskboard.removeChild(task1);
+        }
+
+        
+
+
+    </script>
+</body>
+
+</html>
