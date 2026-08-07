@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        /* 第 3 題：閱讀角標題及內容卡片 */
+        h2 {
+            font-size: 26px;
+            color: #264653;
+            background-color: #e9f5f2;
+            font-weight: 700; 
+        }
+
+        .book-card {
+            color: black;
+        }
+
+        article {
+            color: black;
+        }
+
+
+        /* 第 4 題：閱讀角標題及內容卡片 */
+        .information-box {
+            width: 280px;
+            padding: 16px;
+            border: 2px solid #457b9d;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+
+        /* 第 8 題：加入連結滑鼠效果 */
+
+        .room-link {
+            color: #1d3557;
+            text-decoration: none;
+
+        }
+
+        .room-link:hover {
+            background-color: #a8dadc;
+            border-radius: 6px;
+        }
+
+
+        /* 第 9 題：活動室背景圖案 */
+        .background {
+            background-image: url('room-pattern.svg');
+            background-repeat: repeat-y;
+            background-position: 80%;
+            background-color: #f5f1e8;
+            background-attachment: fixed;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- 第 1 題：加入新的到訪提示 -->
+    <button onclick="addArrivalNote()">加入到訪提示</button>
+    <ul id="arrivalNotes"></ul>
+
+    <!-- 第 2 題：製作開放時間表 -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>日期</th>
+                <th>開放時間</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>星期一</td>
+                <td>上午九時至下午六時</td>
+            </tr>
+            <tr>
+                <td>星期六</td>
+                <td>上午十時至下午四時</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <!-- 第 3 題：閱讀角標題及內容卡片 -->
+    <h2>社區閱讀角</h2>
+    <section class="shelf">
+        <article class="book-card">本月新書</article>
+        <article class="book-card">兒童讀物</article>
+        <article class="book-card">報章雜誌</article>
+    </section>
+
+    <!-- 第 4 題：設定資訊方格的盒模型 -->
+
+    <div class="information-box">活動開始前十五分鐘開放入場。</div>
+
+
+    <!-- 第 7 題：標示所有開放時段 -->
+    <p>今日開放時段：</p>
+    <span>上午九時</span>
+    <span>上午十一時</span>
+    <span>下午二時</span>
+    <span>下午四時</span>
+    <button onclick="emphasizeTimes()">標示時段</button>
+
+    <!-- 第 8 題：加入連結滑鼠效果 -->
+    <a class="room-link" href="#studio">查看創作室</a>
+
+    <script>
+        // 第 1 題：加入新的到訪提示
+        function addArrivalNote() {
+            const ul = document.getElementById("arrivalNotes");
+            const list = document.createElement("li");
+
+            list.textContent = "請先到接待處領取號碼牌。";
+            ul.appendChild(list);
+
+        }
+
+        // 第 5 題：活動室陣列
+        let activityRooms = [
+            "棋藝室",
+            "舞蹈室",
+            "閱讀室",
+            "多用途室"  
+        ];
+
+        activityRooms[1];
+        // output: 舞蹈室
+
+        let computerRoom = "電腦室";
+        activityRooms.push(computerRoom);
+        
+        for(let i = 0; i < activityRooms.length; i++){
+            console.log(activityRooms[i]);
+        }
+
+
+        // 第 6 題：判斷登記方式
+        let visitorCount = 7;
+        let registrationType = "";
+
+        if (visitorCount >= 6) {
+            registrationType = "個別登記";
+            console.log(registrationType);
+        } else {
+            console.log(registrationType);
+        }
+
+        // 第 7 題：標示所有開放時段
+
+        function emphasizeTimes() {
+            const tagElement = document.getElementsByTagName("span");
+            console.log(tagElement);
+            for(let i = 0; i < tagElement.length; i++) {
+                tagElement[i].style.fontWeight = "700";
+                tagElement[i].style.borderBottom = "solid";
+            }
+        }
+
+    </script>
+</body>
+
+</html>
