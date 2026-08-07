@@ -61,24 +61,28 @@
             display: flex;
             padding: 0;
             margin: 0;
-            list-style-type: disc;
+            list-style-type: none;
             background-color: darkgreen;
             overflow: hidden;
             justify-content: space-evenly;
         }
 
         li {
-            float: right;
+            float: left;
+            
             
         }
         li a {
+            background-color: darkgreen;
             color: white;
             text-align: center;
             padding: 12px 14px 16px 14px;
-            text-decoration: none
+            text-decoration: none;
+            display: block;
         }
 
-        
+        /* 第 10 題的 CSS 請填寫於此處 */
+
         .card-container {
             display: flex;
             justify-content: center;
@@ -200,20 +204,24 @@
     <button onclick="clearFirst()">Click me!</button>
 
 
-    <
+    <pre style="z-index: 10">
+            question with button
+            question with backgrounds
+            
+    </pre>
 
 
     <script>
         // 題目三
-        for (let i = 5; i % 5 === 0 && i <= 25; i += 5) {
-            console.log("For loop: " +i);
+        for (let i = 5; i <= 25; i += 5) {
+            document.write(i + "<br>");
         }
 
         let i = 5;
         do {
-            console.log("Do-while loop: " + i);
+            document.write(i + "<br>");
             i += 5;
-        } while( i % 5 === 0 && i <= 25);
+        } while(i <= 25);
 
         // 題目四
         while (i <= 5) {
@@ -310,7 +318,7 @@
         }
 
         
-
+        
 
     </script>
 </body>
