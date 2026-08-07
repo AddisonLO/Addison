@@ -57,6 +57,46 @@
             background-attachment: fixed;
         }
 
+
+        /* 第 13 題：服務資訊連結 */
+        .service-links ul {
+            display: flex;
+            justify-content: space-evenly;
+            list-style-type: none; 
+            margin: 0;
+            padding: 0;
+            background-color: #31572c;
+        }
+
+        .service-links li { 
+            margin-right: 18px;
+        }
+
+        .service-links a { 
+            color: white; 
+            padding: 10px 12px;
+            display: block;
+            text-decoration: none;
+        }
+
+
+
+        /* // 第 15A 題： 兩種編號次序 */
+
+        .notice-grid { 
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 12px;
+        }
+
+        @media (max-width: 600px){
+            .notice-grid {
+                flex-direction: column;
+            }
+        }
+
+
+
     </style>
 </head>
 
@@ -112,6 +152,43 @@
     <!-- 第 8 題：加入連結滑鼠效果 -->
     <a class="room-link" href="#studio">查看創作室</a>
 
+
+    <!-- 第 11 題：確認預約狀態 -->
+
+    <div id="bookingStatus" style="border:2pxsolid#cccccc;background-color:#6c757d;">
+        預約尚未確認
+    </div>
+    <button onclick="confirmBooking()">確認預約</button>
+
+    <!-- 第 12 題：建立活動報名表單 -->
+
+    <form>
+        <label for="participantName">參加者姓名</label>
+        <input type="text" id="participantName" />
+
+        <select>
+            <option>上午場</option>
+            <option>下午場</option>
+        </select>
+
+        <button type="submit">送出登記</button>
+    </form>
+
+
+    <!-- 第 13 題：服務資訊連結 -->
+
+    <div class="service-links">
+        <ul>
+            <li><a href="#hours">開放時間</a></li>
+            <li><a href="#rooms">活動室</a></li>
+            <li><a href="#contact">聯絡方法</a></li>
+        </ul>
+    </div>
+
+    <!-- 第 14 題： 計算場地費⽤ -->
+
+    
+
     <script>
         // 第 1 題：加入新的到訪提示
         function addArrivalNote() {
@@ -163,6 +240,57 @@
                 tagElement[i].style.borderBottom = "solid";
             }
         }
+
+        // 第 10 題：讀取及修改物件資料
+
+        let centreRoom = {
+            name: "創意室",
+            floor: 2,
+            seats: 18
+        }
+
+        centreRoom.floor
+        //output: 2
+
+        centreRoom.seats = 20;
+        console.log(centreRoom.seats);
+
+        centreRoom.available = true;
+
+
+        // 第 11 題：確認預約狀態
+        function confirmBooking() {
+            const bookingStatus = document.getElementById("bookingStatus");
+
+            bookingStatus.textContent = "預約已經確認";
+            bookingStatus.style.color = "#ffffff";
+            bookingStatus.style.borderColor = "#15616d";
+            bookingStatus.style.fontSize = "20px";
+        }
+
+
+        // 第 14 題： 計算場地費⽤
+
+        function calculateVenueFee(hours, hourlyRate) {
+            return hours * hourlyRate;
+        }
+
+        console.log(calculateVenueFee(3, 25));
+
+
+        // 第 15A 題： 兩種編號次序
+
+        for (let i = 2; i <= 14; i += 4){
+            console.log(i);
+        }
+
+        // 第 15B 題： 兩種編號次序
+
+        let i = 14;
+        do {
+            console.log(i);
+            i -= 4;
+        } while (i >=2)
 
     </script>
 </body>
